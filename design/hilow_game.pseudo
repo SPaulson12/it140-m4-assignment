@@ -11,19 +11,55 @@
 START hilow_game
 
     # Establish a valid guessing range.
-    TODO: Obtain the lower and upper bounds.
-    TODO: Repeat as needed until the bounds satisfy the requirement.
+    DISPLAY "Enter the lower bound:"
+    INPUT lower_bound
 
-    # Establish the number the player is trying to guess.
-    TODO: Generate the required random number from the valid range.
+    DISPLAY "Enter the upper bound:"
+    INPUT upper_bound
 
-    # Play the game.
-    TODO: Obtain and validate a guess using the selected bounds.
-    TODO: Repeat the required game behavior until the correct guess.
-        TODO: Compare a valid guess and provide the required feedback.
-        TODO: Obtain and validate another guess when play continues.
+    WHILE lower_bound >= upper_bound
+        DISPLAY "Invalid range. Upper bound must be greater than lower bound."
+        DISPLAY "Enter the lower bound:"
+        INPUT lower_bound
+        DISPLAY "Enter the upper bound:"
+        INPUT upper_bound
+    END WHILE
+
+    # Generate a random number within the range.
+    SET secret_number = RANDOM INTEGER between lower_bound and upper_bound
+
+    # Ask the player to guess.
+    DISPLAY "Guess a number between", lower_bound, "and", upper_bound
+    INPUT player_guess
+
+    # Validate the player's guess.
+    WHILE player_guess is not a valid integer OR
+          player_guess < lower_bound OR player_guess > upper_bound
+        DISPLAY "Invalid guess. Enter a number within the range."
+        INPUT player_guess
+    END WHILE
+
+    # Continue until the player guesses correctly.
+    WHILE player_guess != secret_number
+
+        IF player_guess < secret_number THEN
+            DISPLAY "Too low. Try again."
+        ELSE
+            DISPLAY "Too high. Try again."
+        END IF
+
+        DISPLAY "Enter another guess:"
+        INPUT player_guess
+
+        WHILE player_guess is not a valid integer OR
+              player_guess < lower_bound OR player_guess > upper_bound
+            DISPLAY "Invalid guess. Enter a number within the range."
+            INPUT player_guess
+        END WHILE
+
+    END WHILE
+
+    # Winning message.
+    DISPLAY "Congratulations! You guessed the correct number!"
 
 END hilow_game
-
-# === References ===
-# TODO: Add references for sources you used, or delete this line if unused.
